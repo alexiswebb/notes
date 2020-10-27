@@ -39,25 +39,29 @@ Big-O measures "worst case" / upper bound of complexity
 #### "Stable vs Unstable Sorts"
 When you have duplicate values, an unstable sort doesn't preserve the original order of duplicate values. In stable sorts, the original order of duplicate values will be preserved.
 
-#### **Bubble sort:** As you move through an array, partion into sorted and unsorted. Begin with an 'unsortedPartitionIndex' which is the last index of the unsorted partition. Compare array[0] with array[1] and if array[0] is greater, swap them, otherwise move to compare array[1] with array[2] and so forth. Inevitably, after the first traversal, the largest number will be at the end, so the 'unsortedPartitionIndex' is now one less. Go through another traversal up to array[n-1], then array[n-2] etc until you're left with only one element. Now the list is sorted. Because you need to go through a number of traversals equal to the array length it has quadratic complexity
+#### Bubble sort 
+As you move through an array, partion into sorted and unsorted. Begin with an 'unsortedPartitionIndex' which is the last index of the unsorted partition. Compare array[0] with array[1] and if array[0] is greater, swap them, otherwise move to compare array[1] with array[2] and so forth. Inevitably, after the first traversal, the largest number will be at the end, so the 'unsortedPartitionIndex' is now one less. Go through another traversal up to array[n-1], then array[n-2] etc until you're left with only one element. Now the list is sorted. Because you need to go through a number of traversals equal to the array length it has quadratic complexity
 * Summary: compare and swap all adjacent unsorted elements each traversal.
 * In-place algorithm: no need to create a new array to place sorted items
 * O(n^2) complexity: it takes 100 steps to sort 10 items, 10,000 for 100 items... the implementation uses nested loops - each loop usually indicated complexity of n, so a nested loop will often lead to n^2 complexity
 * Stable sort: once the duplicates are next to each other, the left-most will remain the left-most because it only swaps if the left-most item is GREATER, not GREATER/EQUAL
 
-#### **Selection Sort:** traverse array (compare array[i] to array [i+1] and track the index of the largest number, continue through array)  to find the largest value and swap it with the element at the end; continue with the elements remaining (one less than the starting length);
+#### Selection Sort
+Traverse array (compare array[i] to array [i+1] and track the index of the largest number, continue through array)  to find the largest value and swap it with the element at the end; continue with the elements remaining (one less than the starting length);
 * Summary: find largest and swap it each traversal
 * In-pace algorithm
 * O(n^2) complexity, but swaps less than bubble (only one swap per traversal)
 * Unstable sort!
 
-#### **Insertion Sort:** element at 0 is sorted; unsorted partition is everything else. Over each traversal, insert the first unsorted item into the sorted parition. Insertions compare the value you want to insert by comparing values in the sorted partition, moving right to left. Once you find a value that is less than or greater than the insertion value, insert it. This requires shifting greater values to the right one space for each traversal.
+#### Insertion Sort:
+Element at 0 is sorted; unsorted partition is everything else. Over each traversal, insert the first unsorted item into the sorted parition. Insertions compare the value you want to insert by comparing values in the sorted partition, moving right to left. Once you find a value that is less than or greater than the insertion value, insert it. This requires shifting greater values to the right one space for each traversal.
 * Summary: insert next element into sorted partition, shifting elements right
 * In-place algorithm
 * O(n^n) complexity
 * Stable = inserting from left to right, so once the right-most duplicate comes up, it will be inserted to the right of the first duplicate value.
 
-#### **Shell Sort:** a variation on Insertion Sort; determine a gap - using this gap, select the element at index = gap and compare this to the element a distance = gap to the left. If it is less, swap the elements and continue. Once the element is greater than or equal to the element a gap away on the left, select the next item at array[gap+1]. Once the end of the array is reached, the gap gets smaller until the gap is zero, which will lead to an insertion sort. This makes the insertion sort more performant because fewer swaps will occur in a partially-sorted array.
+#### Shell Sort:
+A variation on Insertion Sort; determine a gap - using this gap, select the element at index = gap and compare this to the element a distance = gap to the left. If it is less, swap the elements and continue. Once the element is greater than or equal to the element a gap away on the left, select the next item at array[gap+1]. Once the end of the array is reached, the gap gets smaller until the gap is zero, which will lead to an insertion sort. This makes the insertion sort more performant because fewer swaps will occur in a partially-sorted array.
 * Summary: swap across gaps each traversal; gap size will decrease and once it reached one, do an insertion sort
 * In-place algorithm
 * Worst case is still O(n^2), but performance can increase based on gap
