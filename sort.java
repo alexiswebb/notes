@@ -3,6 +3,7 @@ public class Sort {
   public static void main(String[] args) {
     int[] array = { 20, 35, -15, 7, 55, 1, -22 };
     int[] wholeArray = { 2, 5, 9, 8, 2, 8, 7, 10, 4, 3 };
+    int[] radixArray = { 4725, 4586, 1330, 8792, 1594, 5729 };
 
     //bubbleSort(array);
     //selectionSort(array);
@@ -11,7 +12,47 @@ public class Sort {
     //System.out.println("Factorial of 7: " + recursiveFactorial(7));
     //mergeSort(array, 0, array.length);
     //quickSort(array, 0, array.length);
-    countingSort(wholeArray, 1, 10);
+    //countingSort(wholeArray, 1, 10);
+    radixSort(radixArray, 10, 4);
+  }
+
+  public static void radixSort(int[] array, int radix, int width) {
+    System.out.println("RADIX SORT");
+    printArray(array);
+    for (int i = 0; i < width; i++) {
+      radixSingleSort(array, i, radix);
+      printArray(array);
+    }    
+  }
+
+  public static void radixSingleSort(int[] array, int position, int radix) {
+    int arrayLength = array.length;
+    int[] tallyArray = new int[radix];
+
+    for (int value: array) {
+      tallyArray[getDigit(position, value, radix)]++;
+    }
+
+    // Adjust tally array to show occurances of all values <= index value
+    for (int j = 1; j < radix; j++) {
+      tallyArray[j] += tallyArray[j-1];
+    }
+
+    // copy into temporary array working right to left
+    int[] temp = new int[arrayLength];
+    for (int tempIndex = arrayLength - 1; tempIndex >= 0; tempIndex--) {
+      int digit = getDigit(position, array[tempIndex], radix);
+      temp[--tallyArray[digit]] = array[tempIndex];
+    }
+    for (int i = 0; i < arrayLength; i++) {
+      array[i] = temp[i];
+    }
+  }
+
+  public static int getDigit(int position, int value, int radix) {
+    // position 0 of 4725 is 10^1 = 0, 4725/0 = 4725 % 10 = 5
+    // position 2 of 4725 is 10^2 = 100, 4725/100 = 47.35 % 10 = 7
+    return value / (int) Math.pow(10, position) % radix;
   }
 
   public static void countingSort(int[] array, int min, int max) {
@@ -99,7 +140,7 @@ public class Sort {
     while (i < mid && j < end) {
        temp[tempIndex++] = array[i] <= array[j] ? array[i++] : array[j++];
     }
-    // Handle left over elements if any exist in left array by copyinf left-sde items from i to (mid-i) at the point of start+tempIndex, which is the end of the sorted merged array
+    // Handle left over elements if any exist in left array by copying left-side items from i to (mid-i) at the point of start+tempIndex, which is the end of the sorted merged array
     System.arraycopy(array, i, array, start + tempIndex, mid-i);
     // If there are left over elements in the right array, they aren't copied because we stop the copy at tempIndex -- they're in order already
     System.arraycopy(temp, 0, array, start, tempIndex);

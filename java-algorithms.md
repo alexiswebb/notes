@@ -88,3 +88,17 @@ Algorithm specifically for discrete, non-negative values - typically whole numbe
 * Not in-place; there's a tallying array used to record values
 * O(n): only requires one traversal, because we can make assumptions about data
 * Unstable algorithm
+
+#### Stable Counting Sort
+Calculate where each value should go back into final array and write them in backwards order to retain the original order of duplicate values. First, transpose the array into a normal counting array where each value is 'tallied' in the index equal to the value (eg. (0, 1, 2, 2, 7) will become (1,1,2,0,0,0,0,1)), then modify the count in the counting array to be the number of values =< the current index - you can simply sum the values going right to left (eg. (1,1,2,0,0,0,0,1) becomes (1,2,4,4,4,4,4,5)). Now, going right to left through the original array, decrease the count array value at the index = original array value. This new value is the index where the original value should go in the final array. ((eg. 7 in the original array -> countingArray[7] = 5, decrement 5 to 4, 4 is the index position in the sorted array; nevermind that my example is already sorted :))
+* Summary: Stable because of the summing on the counting array and writing backwards to the final array (right to left)
+
+#### Radix Sort
+Algorithm specifically for integers and strings. Radix represnts the number of distinct characters (eg. 10 for decimal, 26 for english alphabet). Data must all conform to the same length (eg. 5 letter words). Algorithms moves across the width of the objects (eg. sort 1s, then 10s; sort left to right for words), so the sort has to be stable to respect the sorting in iterations that came before.
+* Summary: sorting same-length words/numbers, go character by character using counting sort
+* Counting sort is often used for each iteration, but it has to be made stable
+* O(n) - but requires a lot of memory because of the overhead of splitting the width of the number/word.
+* Can be in-place (depends on implementation)
+
+## Lists
+
