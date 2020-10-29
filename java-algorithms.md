@@ -67,3 +67,24 @@ A variation on Insertion Sort; determine a gap - using this gap, select the elem
 * Worst case is still O(n^2), but performance can increase based on gap
 * Unstable sort -- elements jump over each other according to gap
  
+#### Merge Sort
+Take an array and logicially split the array in half, until you're left with (logical, not actual) arrays of only one element each. Then, merge left/right pairs into sorted temporary arrays that are then placed back into the original array; repeat until all pairs are sorted.
+  * Uses i index to compare each element in a left pair to the j index in the right pair. If i or j reach the end of their array length before the other pair, the temp array is sorted because the remaining elements have already been sorted.
+* Summary: halve and compare pairs to two, then pairs all the way up.
+* Not in-place: this algorithm uses temporary arrays for the merge
+* O(nlogn) - we halve the array recursively
+* Stable algorithm: left duplicate is copied into sorted array first
+
+#### Quick Sort
+Makes a 'pivot' point in the array, moving all items lesser-than to the left, and greater-than to the right. You can find these values by alternating left and right values against the pivot value and swapping positions according to value against the pivot. For instance, start at index 0 as pivot and store in temp value. Compare to element at the end of the array, and if that element is less, place it in index 0 (overwritting the pivot, but the pivot value is saved in temp); continue with element at index 1 and then element at array.length-1, etc. Once the positions overlap, you've found the index for the pivot.
+* Summary: put elements less than or more than a pivot value,  and then move pivot until every element has been sorted into the correct index.
+* In-place algorithm
+* O(nlogn) - we parition into halves
+* Unstable algorithm: 'braiding' left and right means that original order of duplicate items won't be guarenteed
+
+#### Counting Sort
+Algorithm specifically for discrete, non-negative values - typically whole numbers, and within a 'smallish' range. 'Tally' the number of occurances of each value at the index = value-1; eg - if working with values between one and ten, make an array of length 10. If there are five twos in the data set, the value at index 4 (value-1, to account for zero index) will be equal to 5. Once all the values are accounted for, the count can be projected into an array by going through the 'tallied' array and outputing the number of each value (index+1), the number of times of the value (recording occurance number).
+* Summary: transpose occurance count into an array where index indicates value; transpose back into an array that will now be ordered.
+* Not in-place; there's a tallying array used to record values
+* O(n): only requires one traversal, because we can make assumptions about data
+* Unstable algorithm
