@@ -101,4 +101,41 @@ Algorithm specifically for integers and strings. Radix represnts the number of d
 * Can be in-place (depends on implementation)
 
 ## Lists
+Abstract data type - represented as an interface which is implemented by a variety of classes. 
 
+#### Array Lists
+Resizable array implementation of the list interface. Capacity is set, but if capacity is exceeded, the backing array will need to be transferred to a new, larger array - requiring memory. Unsynchronized: writes can create conflicts.
+
+#### Vectors
+Also a growable array, but thread-safe, unlike array lists. Synchronization has overhead, which can take memory (and time) - so the array list was added to the JDK to create an array-backed list with less overhead.
+
+#### Linked Lists
+Each item in the list is aware of another item in the list. For singly-linked lists, each list item is aware of the following item in the list, which means the value is stored as well as a reference to the next value.
+* Head: first item in list
+* Node: each item in the list
+* Last item points to null
+* To insert: create a new node and insert at the front of the list (so you don't need to traverse the list to place it); this is of constant complexity (O(1)); this new node references the old head node and becomes the new head node.
+* To delete: assign node to a temp variable and change head to refer to the next element (if removing the first element); return temp. Also O(1) - doesn't require list traversal
+* Insertions/deletions other than the first element require traversal, so O(n)
+
+#### Double Linked Lists
+Each item in the list references the item before and after itself. Thus, adding and removign from either the front or the end happens in constant time (O(1))
+* Tail: final item in the list
+* Each node has it's value, a reference to the item before and a reference to the item after
+* The head will point back to null just as th tail points forward to null
+* To insert at head: make new node and assign old head to the new node's next node. Move the 'before' value from the old head (null) to the new node's 'before' value and make the new node the old node's 'before'. Finally, assign head to the new node. This is all O(1)
+* To insert at tail: make new node and assign tail's 'next' value to new node's 'next' value (null for tail). Assign old tail to new node's 'before' value and make old tail's 'next' value equal to the new node. Finally, assign tail to new node. O(1)
+* To remove at head: assign node to temp variable and change head to the next node. Set the new head's 'previous' value to the 'previous' value of the removed node (null for head). Return temp. O(1)
+* To remove from tail: assign node to temp variable and make 2nd from tail's 'next' node equal to removed node's 'next' field (null for tail); Assign tail to the 2nd from tail node and return temp.
+##### To insert node A between nodes B and C:
+* Assign A's next value to B's next value
+* Assign A's previous value to C's previous value
+* Assign B's next field to A
+* Assign C's previous field to A
+* This is a O(1) operation, but finding the insertion point is a O(n) operation, so actually inserting mid list is O(n)
+##### To remove node A from between nodes B and C:
+* Assign A to temp variable
+* Assign C's previous value to B
+* Assign B's next value to A
+* return temp variable
+* O(1) for operation, but O(n) to find A in the list
