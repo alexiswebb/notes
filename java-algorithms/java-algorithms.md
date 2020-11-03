@@ -139,3 +139,10 @@ Each item in the list references the item before and after itself. Thus, adding 
 * Assign B's next value to A
 * return temp variable
 * O(1) for operation, but O(n) to find A in the list
+
+#### Stacks
+* LIFO; no random access
+* push - adds to the top of the stack
+* pop - removes from the top of the stack
+* peek - read top of stack without popping
+* ideal backing data structure: linked list (O(1) to add/remove head);if you used an array, pushing resizes the array which is O(n)
