@@ -153,3 +153,17 @@ Each item in the list references the item before and after itself. Thus, adding 
 * dequeue - remove from from of queue
 * peek - read front of queue without dequeuing
 
+#### Hash Tables
+* Provides access to data using keys; key-value pairs.
+* Optimized for retrieval - constant time if you know the key.
+* Why hash? Hashing converts keys of other data types into ints
+* Hashing can create collisions (when two keys are hashed into the same value)
+* Load Factor: indicates how full the table is - size / capacity. Used to determine when the backing data structure (eg. array) should be resized.
+** Too low - too much empty space; too high - greater risk of collisions
+
+#### Bucket Sort
+Uses hashing to sort. Distribute items into buckets based on hash (scattering), sort in each bucket and merge all buckets (gathering). Hashing must be able to organize in a way that bucket 0 < bucket 1 < bucket 2
+* Not in-place
+* Sort stability reflects sorting alg used
+* Can achieve O(n), but only if one item per bucket
+* Insertion sort is popularly used for bucket sort
